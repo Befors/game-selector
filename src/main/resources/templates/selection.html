@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Выбор игры</title>
+    <link rel="stylesheet" th:href="@{css/selection.css}"/>
+</head>
+<body>
+<a href="/">
+    <button>Главная страница</button>
+</a>
+<h2>Найдите вашу идеальную игру!</h2>
+<div class="wrapper">
+    <span th:if="${current.type == T(ru.sstu.gameselector.model.enums.NodeType).RESULT}">Ваш результат: </span>
+    <p th:text="${current.title}"></p>
+    <div th:if="${current.type == T(ru.sstu.gameselector.model.enums.NodeType).QUESTION}">
+        <button id="yesBtn">Да</button>
+        <button id="noBtn">Нет</button>
+    </div>
+    <button id="restartBtn">Начать сначала</button>
+</div>
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#yesBtn").click(function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "/api/nodes/next/yes",
+                success: function () {
+                    location.reload();
+                }
+            })
+        })
+
+        $("#noBtn").click(function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "/api/nodes/next/no",
+                success: function () {
+                    location.reload();
+                }
+            })
+        })
+
+        $('#restartBtn').click(function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "/api/nodes/restart",
+                success: function () {
+                    location.reload();
+                }
+            })
+        })
+    })
+
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+body {
+    font-family: cursive;
+    background: linear-gradient(104deg, rgba(211, 207, 255, 1) 7%, rgba(255, 197, 163, 1) 93%);;
+}
+
+button {
+    padding: 7px 17px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.15rem;
+    background-color: #8484c7;
+    cursor: pointer;
+    color: white;
+}
+
+.updateTypeBtn {
+    margin: 10px 0 10px;
+}
+
+.updateTitleBtn {
+    margin-left: 10px;
+}
+
+.root {
+    margin-bottom: 15px;
+}
+
+.typeSpan {
+    margin-left: 15px;
+}
+
+h2 {
+    font-size: 35px;
+}
+
+input {
+    padding: 5px;
+    width: 600px;
+    border: 2px solid black;
+    font-family: cursive;
+    font-size: 15px;
+}
+
+li {
+    list-style-type: none;
+}

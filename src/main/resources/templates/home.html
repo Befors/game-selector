@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <link rel="stylesheet" th:href="@{css/home.css}"/>
+</head>
+<body>
+<h2>Найдите вашу идеальную игру!</h2>
+<div>
+    <a sec:authorize="hasRole('ADMIN')" href="/admin">
+        <button>Редактировать дерево</button>
+    </a>
+    <a sec:authorize="isAnonymous()" href="/login">
+        <button>Войти</button>
+    </a>
+    <a href="/selection">
+        <button>Выбрать игру</button>
+    </a>
+</div>
+</body>
+</html>

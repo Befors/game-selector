@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Панель администратора</title>
+    <link rel="stylesheet" th:href="@{css/admin.css}"/>
+</head>
+<body>
+<a href="/">
+    <button>Главная страница</button>
+</a>
+<h1>Панель администратора</h1>
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script type="text/javascript" th:inline="javascript">
+    let root = [[${root}]];
+
+    function generateHtml() {
+        let ul = createUl();
+        let li = createLi();
+
+        ul.appendChild(li);
+        li.appendChild(addTitleEditBlock(root));
+        addSubNode("", root.yes, li);
+        addSubNode("", root.no, li);
+
+        $(li).children().eq(0).addClass("root");
+        document.body.appendChild(ul);
+    }
+
+    function addSubNode(type, node, root) {
+        let ul = createUl();
+        let li = createLi();
+
+        ul.appendChild(li);
+        li.appendChild(addTitleEditBlock(node));
+        li.appendChild(addTypeEditBlock(node));
+        root.appendChild(ul);
+
+        if (node.yes) {
+            addSubNode("", node.yes, li);
+            addSubNode("", node.no, li);
+        }
+    }
+
+    function createUl() {
+        return document.createElement("ul");
+    }
+
+    function createLi() {
+        return document.createElement("li");
+    }
+
+    function addTitleEditBlock(node) {
+        let titleEditBlock = document.createElement("template");
+
+        titleEditBlock.innerHTML = `<div data-node-id="${node.id}">
+                                       <input class="titleInput" type="text" value="${node.title}">
+                                       <button class="updateTitleBtn">Сохранить</button>
+                                    </div>`.trim();
+
+        return titleEditBlock.content.firstChild;
+    }
+
+    function addTypeEditBlock(node) {
+        let typeEditBlock = document.createElement("template");
+        let nodeType = node.yes ? "вопрос" : "результат";
+
+        typeEditBlock.innerHTML = ` <div data-node-id="${node.id}">
+                                       <button class="updateTypeBtn">Изменить тип</button><span class="typeSpan"
+                                       >Текущий тип: ${nodeType}</span>
+                                    </div>`.trim();
+
+        return typeEditBlock.content.firstChild;
+    }
+
+    generateHtml();
+
+    $(document).ready(function () {
+        $(".updateTitleBtn").click(function (event) {
+            event.preventDefault();
+
+            let target = event.target;
+            let parentDiv = findParentDiv(target);
+            let id = parentDiv.dataset.nodeId;
+
+            $.ajax({
+                type: "PUT",
+                url: `/api/nodes/${id}/title`,
+                contentType: "application/json",
+                data: $(parentDiv).find(".titleInput")[0].value,
+                success: function () {
+                    location.reload();
+                }
+            })
+        })
+
+        $(".updateTypeBtn").click(function (event) {
+            event.preventDefault();
+
+            let id = findParentDiv(event.target).dataset.nodeId;
+
+            $.ajax({
+                type: "POST",
+                url: `/api/nodes/${id}/type`,
+                success: function () {
+                    location.reload();
+                }
+            })
+        })
+    })
+
+    function findParentDiv(target) {
+        return target.closest("div");
+    }
+</script>
+</body>
+</html>

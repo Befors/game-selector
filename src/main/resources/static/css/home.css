@@ -1,0 +1,27 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: cursive;
+    background:linear-gradient(104deg, rgba(140, 130, 255, 1) 0%, rgba(237, 162, 119, 1) 93%);
+}
+
+button {
+    padding: 7px 17px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.15rem;
+    background-color: #8484c7;
+    cursor: pointer;
+    color: white;
+}
+
+h2 {
+    font-size: 35px;
+}
+
+a {
+    text-decoration: none;
+}

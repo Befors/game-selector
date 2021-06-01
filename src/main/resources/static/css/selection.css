@@ -1,0 +1,50 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: cursive;
+    background: linear-gradient(104deg, rgba(211, 207, 255, 1) 7%, rgba(255, 197, 163, 1) 93%);
+}
+
+a {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+}
+
+h2 {
+    font-size: 35px;
+}
+
+p {
+    font-size: 21px;
+}
+
+#yesBtn, #noBtn, #restartBtn, button {
+    padding: 7px 17px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.15rem;
+    background-color: #8484c7;
+    cursor: pointer;
+    color: white;
+}
+
+#restartBtn {
+    margin-top: 15px;
+    background-color: #13bd45;
+}
+
+.wrapper {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+span {
+    font-size: 18px;
+}
